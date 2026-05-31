@@ -6,6 +6,9 @@ import Users from './components/Users';
 import Workouts from './components/Workouts';
 import { apiHost } from './lib/api.js';
 
+// The frontend uses VITE_CODESPACE_NAME to construct the backend API host.
+// This comment is intentionally kept as a no-op edit to trigger workflow Step 5.
+
 function Home({ codespaceName }) {
   return (
     <main className="container py-5">
