@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getApiUrl, normalizeApiResponse } from '../lib/api.js';
 
+// Codespaces endpoint check:
+// https://<VITE_CODESPACE_NAME>-8000.app.github.dev/api/activities
+
 function renderRows(items) {
   if (!items.length) {
     return (
