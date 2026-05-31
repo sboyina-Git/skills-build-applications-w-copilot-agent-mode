@@ -8,6 +8,11 @@ import teamsRouter from './routes/teams';
 import activitiesRouter from './routes/activities';
 import leaderboardRouter from './routes/leaderboard';
 import workoutsRouter from './routes/workouts';
+import User from './models/user';
+import Team from './models/team';
+import Activity from './models/activity';
+import Workout from './models/workout';
+import Leaderboard from './models/leaderboard';
 
 dotenv.config();
 
@@ -48,6 +53,22 @@ app.use('/api/teams', teamsRouter);
 app.use('/api/activities', activitiesRouter);
 app.use('/api/leaderboard', leaderboardRouter);
 app.use('/api/workouts', workoutsRouter);
+
+// Database status route for verification: returns collection counts
+app.get('/api/db-status', async (_req, res) => {
+  try {
+    const counts = {
+      users: await User.countDocuments(),
+      teams: await Team.countDocuments(),
+      activities: await Activity.countDocuments(),
+      workouts: await Workout.countDocuments(),
+      leaderboard: await Leaderboard.countDocuments(),
+    };
+    res.json(counts);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch DB status', details: err });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Octofit backend listening on port ${port}`);
